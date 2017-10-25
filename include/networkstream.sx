@@ -1,0 +1,6 @@
+include std;
+
+class networkStream : stream
+{
+};
+

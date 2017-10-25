@@ -1,0 +1,91 @@
+include std;
+import thread;
+
+import
+{
+	function short htons(short hostshort);
+	function long bind(int s, void* addr, long len);
+	function int createlistensocket(short port);
+	function int acceptsocket(int sock);
+}
+
+class socket : handle
+{
+	short port;
+	bool listening;
+	long packetIndex;
+	long streamInIndex;
+	long streamOutIndex;
+	long streamSize;
+	void* c;
+
+	function socket* init()
+	{
+		//c = NULL;
+		listening = false;
+		packetIndex = 0;
+		streamOutIndex = 0;
+		streamInIndex = 0;
+		streamSize = 0;
+		port = 0;
+		return this;
+	}
+
+	function socket* init(int s)
+	{
+		this.fd = s;
+	}
+
+	function socket* init(char* host, int port)
+        {
+		init();
+                //connect(host, port);
+		return this;
+        }
+
+	function void connect(char* host, int port)
+        {
+        }
+
+	function void write(void* buf, long len)
+	{
+		extern
+		{
+			write(this->fd, buf, len);
+		}
+	}
+
+	function void close()
+	{
+		extern
+		{
+			close(this->fd);
+		}
+	}
+
+	function void listen(long port, void* client)
+	{
+		c = client;
+		this.port = port;
+		new thread(function(socket parent)
+		{
+			int listenSocket = createlistensocket(parent.port);
+			while(1)
+			{
+				socket s(acceptsocket(listenSocket));
+				parent.c(s);
+				//if(!newSock)
+				//{
+				//	throw "ERROR accepting";
+				//}
+
+				/*new thread(function(int* s)
+				{
+					parent.c( new networkStream(newSock) );
+				});*/
+			}
+			
+		}, this).join();
+	}
+};
+

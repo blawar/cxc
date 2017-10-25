@@ -1,0 +1,35 @@
+include std;
+
+struct handle
+{
+	int fd;
+
+	function handle* init()
+	{
+		fd = NULL;
+		return this;
+	}
+
+	function handle* init(int fd)
+	{
+		this.fd = fd;
+		return this;
+	}
+
+	function void destructor()
+	{
+		close();
+	}
+
+	function bool close()
+	{
+		return false;
+	}
+};
+
+operator ltr handle& = (handle& f, int h)
+{
+	f.fd = h;
+	return f;
+}
+

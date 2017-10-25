@@ -1,0 +1,59 @@
+include std;
+import buffer;
+
+class string : buffer
+{
+	function inline char* c_str()
+	{
+		return ptr;
+	}
+};
+
+operator ltr string& = (string &sleft, void* sright)
+{
+        extern
+	{
+		return *sleft = sright;
+	}
+}
+
+operator ltr string& = (string& left, char* right)
+{
+	long len;
+	len = strlen(right);
+	len++;
+
+	if(len > left.alloc_size)
+	{
+		left.reserve(len, 1);
+	}
+	else
+	{
+		left.resize(len);
+	}
+
+	memcpy(left.ptr, right, len);
+
+	return 0;
+}
+
+operator rtl char* = (char* left, int right)
+{
+}
+
+operator rtl string& = (char* left, char* right)
+{
+}
+
+function long strlen(char* s)
+{
+        long len;
+	len = 0;
+        while(*s)
+        {
+		s = s + 1;
+                len = len + 1;
+        }
+        return len;
+}
+

@@ -1,0 +1,82 @@
+
+pod int;
+pod char;
+pod long;
+pod short;
+pod void;
+pod byte;
+pod bit;
+pod bool;
+pod functor;
+pod macro;
+
+pod int1;
+pod int2;
+pod int4;
+pod int8;
+pod int16;
+pod int32;
+pod int64;
+
+operator rtl long ++ (long left)
+{
+        extern
+	{
+		return left++;
+	}
+}
+
+operator ltr long ++ (long left)
+{
+        extern
+	{
+		return ++left;
+	}
+}
+
+operator rtl char* ++ (char* left)
+{
+        extern
+	{
+		return left++;
+	}
+}
+
+operator ltr char* ++ (char* left)
+{
+        extern
+	{
+		return ++left;
+	}
+}
+
+operator rtl char * (char* s)
+{
+        extern
+        {
+                return *s;
+        }
+}
+
+operator ltr verbatim long + (long a, long b);
+operator ltr verbatim long - (long a, long b);
+operator ltr verbatim int + (int a, long b);
+operator ltr verbatim long + (long a, int b);
+operator ltr verbatim long * (long a, long b);
+operator ltr verbatim short = (short a, short b);
+operator ltr verbatim short = (short a, long b);
+operator ltr verbatim long = (int a, int b);
+operator ltr verbatim long = (long a, long b);
+operator ltr verbatim long = (long a, int b);
+operator ltr verbatim long = (int a, long b);
+operator ltr verbatim long = (bool a, bool b);
+operator ltr verbatim long += (long a, long b);
+operator ltr verbatim long += (int a, long b);
+operator ltr verbatim char* = (char* a, long b);
+operator ltr verbatim void* = (void* a, void* b);
+operator ltr verbatim void* + (void* a, long b);
+operator ltr verbatim long > (long a, long b);
+operator ltr verbatim long >= (long a, long b);
+operator ltr verbatim long < (long a, long b);
+operator ltr verbatim long <= (long a, long b);
+operator rtl verbatim long ! (long a);

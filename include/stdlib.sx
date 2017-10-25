@@ -1,0 +1,74 @@
+include std;
+
+include numeric;
+
+import
+{
+        function long typeof(void f);
+        function long sizeof(void f);
+        function int write(int filedes, void* buffer, long size);
+        function int write(long filedes, void* buffer, long size);
+        function int read(int filedes, void* buffer, long size);
+        function int open(char* filename, int flags);
+        function int open(char* filename, long flags);
+        function int recv(int fd, void* buf, long len, int flags);
+        function int send(int fd, void* buf, long len, int flags);
+        function long lseek(int fd, long offset, int whence);
+        function long lseek(int fd, long offset, long whence);
+        function void* malloc(long size);
+        function void* free(void* p);
+        function void* memset(void* ptr, int value, long num);
+        function void* memcpy(void* dest, void* src, long num);
+}
+
+function long strlen(char* s)
+{
+        long len;
+        len = 0;
+        while(*s)
+        {
+                s = s + 1;
+                len = len + 1;
+        }
+        return len;
+}
+
+operator ltr void* = (void* &left, long right)
+{
+	extern
+	{
+		*left = right;
+	}
+}
+
+function void echo(char* out)
+{
+	write(1, out, strlen(out));
+}
+
+/*function void* new(macro newObject)
+{
+	void* r;
+	r = malloc(sizeof(typeof(newObject)));
+	return r;
+}*/
+
+/*operator rtl macro new(macro newObject)
+{
+        void* r;
+        r = malloc(sizeof(typeof(newObject)));
+        return r;
+}*/
+
+function void* delete(macro p)
+{
+	//free(p);
+}
+
+/*operator rtl macro new(macro newObject)
+{
+        void* r;
+        r = malloc(sizeof(typeof(newObject)));
+        return r;
+}*/
+

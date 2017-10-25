@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <sx/sx>
+#include <sx/strings.h>
+
+int main(int argc, char *argv[])
+{
+	string buf;
+	bool bShowMethods = false;
+	for(int i=1; i < argc; i++)
+	{
+		if(*argv[i] == '-')
+		{
+			for(int c=1; argv[i][c] != 0; c++)
+			{
+				switch(argv[i][c])
+				{
+					case 'm':
+						bShowMethods = true;
+				}
+			}	
+		}
+		else
+		{
+			STRINGS tokens;
+			file_get_contents(argv[i], buf);
+			tokenize(buf.c_str(), tokens);
+
+			for(long x=0; x < tokens.size(); x++)
+			{
+				if(!tokens.compare(x, "void"))
+				{
+					printf("%s\n", (const char*)tokens[++x]);
+					//methods.push_back(tokens[++x]);
+				}
+			}
+		}
+	}
+	return 0;
+}

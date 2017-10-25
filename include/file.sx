@@ -1,0 +1,133 @@
+include std;
+import string;
+import handle;
+
+define SEEK_SET 0;
+define SEEK_CUR 1;
+define SEEK_END 2;
+
+struct file
+{
+	handle f;
+	long pos;
+
+	function file* init()
+	{
+		pos = 0;
+		return this;
+	}
+
+	function file open(string filename)
+	{
+		open(filename.c_str() );
+		return this;
+	}
+
+	function file open(char* filename)
+	{
+		f = open(filename, 0);
+		return this;
+	}
+
+	function bool close(handle f)
+	{
+		return f.close();
+	}
+
+	function long read(string buf, long length, bool append)
+	{
+		long r;
+		if(!length) length = size(f);
+		buf = "";
+		buf.resize(length);
+		r = read(f.fd, buf.ptr, length);
+		buf.resize(r);
+
+		return r;
+	}
+
+	function string contents()
+	{
+		bool append;
+		string s();
+		read(s, size(f) , append);
+		return s;
+	}
+
+	function file contents(string s)
+	{
+		bool append;
+		read(s, size(f) , append);
+		return s;
+	}
+
+	function long write(handle f, string buf, long length)
+	{
+		return write(f.fd, buf.c_str() , length);
+	}
+
+	function long size(handle f)
+	{
+		long sz;
+		sz = lseek(f.fd, 0, SEEK_END); // SEEK_END
+		lseek(f.fd, pos, SEEK_SET); // SEEK_SET
+		return sz;
+	}
+
+	function long size()
+	{
+		long sz;
+		sz = size(f);
+		return sz;
+	}
+
+	function bool exists(string filename)
+	{
+		handle f;
+		f = open(filename);
+		if(f.fd)
+		{
+			f.close();
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	function long recv(string buf, long len, int flags)
+	{
+		if(!len)
+		{
+			len = buf.size;
+		}
+		else
+		{
+			buf.resize(len);
+		}
+
+		long r;
+		r = recv(f.fd, buf.c_str() , len, flags);
+		if(r >= 0) buf.resize(r);
+		else buf = "error";
+		return r;
+	}
+
+	function long send(string buf, int flags)
+	{
+		long r=0;
+		long t;
+		while(t = send(f.fd, buf.c_str() + r, buf.size - r, flags))
+		{
+			if(t < 1)
+			{
+				break;
+			}
+			r += t;
+		}
+		return r;
+	}
+};
+
+

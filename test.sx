@@ -1,0 +1,18 @@
+import string;
+
+function int main()
+{
+	/*string s;
+	s->constructor();
+	char* x;
+	s = "Hello world";*/
+	string s;
+	s = new(string);
+	s = "hello world\n";
+	//s = "Hello world";
+	//write(1, s.ptr, s.size);
+	//delete(s);
+	echo(s.c_str());
+	return 0;
+}
+

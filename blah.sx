@@ -1,0 +1,35 @@
+include std;
+import file;
+import thread;
+//import socket;
+
+function int main()
+{
+	new thread(function()
+	{
+		void* fp = function void blah(long x)
+		{
+		};
+		fp(10);
+		string s();
+		new string;
+		file f().open("io.sx").contents(s);
+		echo(s.c_str());
+	}).join();
+
+	/*new socket().listen(90, function(socket sock)
+        {
+		sock.write("hello world", 11);
+		sock.close();
+        });*/
+	
+	return 0;
+}
+
+operator rtl macro new(macro newObject)
+{
+        void* r;
+        r = malloc(sizeof(typeof(newObject)));
+        return r;
+}
+

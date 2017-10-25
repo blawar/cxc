@@ -1,0 +1,11 @@
+import std;
+import socket;
+
+function main()
+{
+	new socket().listen(80, function(networkstream s)
+	{
+		s.write("hello world").close();
+	});
+}
+

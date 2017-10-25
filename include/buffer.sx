@@ -1,0 +1,82 @@
+include std;
+
+int counter;
+
+function void* copy(void* src, void* dest, long size)
+{
+	memcpy(dest, src, size);
+}
+
+struct buffer
+{
+	void* ptr;
+        long size;
+        long alloc_size;
+	long position;
+
+	function buffer* init()
+	{
+		ptr = 0;
+		alloc_size = 0;
+		size = 0;
+		position = 0;
+		return this;
+	}
+
+	function void resize(long new_size)
+	{
+		write_lock();
+		if(new_size > alloc_size)
+		{
+			reserve(new_size, 0);
+		}
+		size = new_size;
+		write_unlock();
+	}
+
+	function void reserve(long new_size, long lock)
+	{
+		if(lock) write_lock();
+
+		void* newptr;
+		newptr = malloc(new_size);
+
+		if(ptr)
+                {
+			copy(ptr, newptr, size);
+                        free(ptr);
+                }
+
+		ptr = newptr;
+		alloc_size = new_size;
+
+		if(lock) write_unlock();
+	}
+
+	function void write(void* p, long len)
+	{
+		if(position + len > alloc_size)
+		{
+			reserve(position+len, 1);
+		}
+		copy(ptr+position, p, len);
+		size = size + len;
+	}
+
+	function void write_lock()
+	{
+	}
+
+	function void write_unlock()
+	{
+	}
+
+	function void read_lock()
+	{
+	}
+
+	function void read_unlock()
+	{
+	}
+};
+

@@ -1,0 +1,67 @@
+
+precedence rtl 2 :: 20;
+
+precedence ltr 2 . 19;
+precedence ltr 1 ( 19;
+precedence ltr 1 [ 19;
+precedence ltr 2 -> 19;
+
+precedence ltr 1 ++ 18;
+precedence ltr 1 -- 18;
+
+precedence rtl 1 ++ 17;
+precedence rtl 1  -- 17;
+precedence rtl 1  + 17;
+precedence rtl 1 - 17;
+precedence rtl 1 ! 17;
+precedence rtl 1 ~ 17;
+precedence rtl 1 * 17;
+precedence rtl 1 & 17;
+precedence rtl 1 sizeof 17;
+precedence ltr 1 new 22;
+precedence rtl 1 delete 17;
+
+precedence ltr 2 * 15;
+precedence ltr 2 / 15;
+precedence ltr 2 % 15;
+
+precedence ltr 2 + 14;
+precedence ltr 2 - 14;
+
+precedence ltr 2 << 13;
+precedence ltr 2 >> 13;
+
+precedence ltr 2 < 12;
+precedence ltr 2 <= 12;
+precedence ltr 2 > 12;
+precedence ltr 2 >= 12;
+
+precedence ltr 2 == 11;
+precedence ltr 2 != 11;
+
+precedence ltr 2 & 10;
+
+precedence ltr 2 ^ 9;
+
+precedence ltr 2 | 8;
+
+precedence ltr 2 && 7;
+
+precedence ltr 2 || 6;
+
+precedence rtl 2 = 4;
+precedence rtl 2 += 4;
+precedence rtl 2 -= 4;
+precedence rtl 2 *= 4;
+precedence rtl 2 /= 4;
+precedence rtl 2 %= 4;
+precedence rtl 2 <<= 4;
+precedence rtl 2 >>= 4;
+precedence rtl 2 &= 4;
+precedence rtl 2 ^= 4;
+precedence rtl 2 |= 4;
+
+precedence rtl 1 throw 3;
+
+precedence rtl 2 , 2;
+

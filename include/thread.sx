@@ -1,0 +1,52 @@
+include std;
+
+pod pthread_attr_t;
+pod pthread_t;
+
+define PTHREAD_CREATE_JOINABLE 0;
+define PTHREAD_CREATE_DETACHED 1;
+
+import
+{
+	function void pthread_attr_init(void* attr);
+	function void pthread_attr_setdetachstate(void* attr, long flags);
+	function void pthread_create(pthread_t* tid, pthread_attr_t* attr, void* func, void* arg);
+	function void pthread_attr_destroy(void* attr);
+	function int pthread_join(pthread_t thread, long value_ptr);
+}
+
+class thread
+{
+	pthread_t tid;
+	pthread_attr_t attr;
+
+	function thread* init()
+	{
+		return this;
+	}
+
+	function thread* init(void* f)
+	{
+		long arg = 0;
+		pthread_attr_init(&attr);
+		pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+		pthread_create(&tid, &attr, f, &arg);
+		pthread_attr_destroy(&attr);
+		return this;
+	}
+
+	function thread* init(void* f, void* p1)
+	{
+                pthread_attr_init(&attr);
+                pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+                pthread_create(&tid, &attr, f, p1);
+                pthread_attr_destroy(&attr);
+                return this;
+	}
+
+	function void join()
+	{
+		pthread_join(tid, NULL);
+	}
+};
+

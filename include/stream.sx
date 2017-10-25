@@ -1,0 +1,68 @@
+include std;
+
+class stream
+{
+	function* stream init()
+	{
+		return this;
+	}
+
+	function bool write(void* pszBuf, long len)
+	{
+		return false;
+	}
+
+	function void writeShort(int16 n)
+	{
+		write(&n, sizeof(n));
+	}
+
+	function void writeInt(int32 n)
+	{
+		write(&n, sizeof(n));
+	}
+
+	function void writeLong(int64 n)
+	{
+		write(&n, sizeof(n));
+	}
+
+	function void writeByte(byte n)
+	{
+		write(&n, sizeof(n));
+	}
+
+	function int64 read(void* buf, long len)
+	{
+		return 0;
+	}
+
+	function int64 readLong()
+	{
+		int64 n;
+		read(&n, sizeof(n));
+		return n;
+	}
+
+	function int32 readInt()
+	{
+		int32 n;
+		read(&n, sizeof(n));
+		return n;
+	}
+
+	function int16 readShort()
+	{
+		int16 n;
+		read(&n, sizeof(n));
+		return n;
+	}
+
+	function byte readByte()
+	{
+		int8 n;
+		read(&n, sizeof(n));
+		return n;
+	}
+};
+
